@@ -1,0 +1,12 @@
+{
+  "name": "amt-model-pipeline",
+  "private": true,
+  "type": "module",
+  "description": "Splits the supplied single-mesh MechanismKit.glb into named part nodes (MechanismKit_Parts.glb).",
+  "dependencies": {
+    "@gltf-transform/core": "^4.0.0",
+    "@gltf-transform/extensions": "^4.0.0",
+    "@gltf-transform/functions": "^4.0.0",
+    "draco3dgltf": "^1.5.7"
+  }
+}

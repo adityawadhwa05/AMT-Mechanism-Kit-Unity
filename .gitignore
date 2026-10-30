@@ -1,0 +1,30 @@
+# Unity-generated files
+/Library/
+/Temp/
+/Obj/
+/Logs/
+/UserSettings/
+/.utmp/
+/.vs/
+/.idea/
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+
+# Local build logs and transient results
+/Build/*.log
+/Build/*Result.txt
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Model pipeline working files
+/Tools/ModelPipeline/node_modules/
+/Tools/ModelPipeline/work/
+/Build/Screenshots/
+/Build/*_BurstDebugInformation_DoNotShip/
+/Build/*.symbols.zip

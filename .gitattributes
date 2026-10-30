@@ -1,0 +1,7 @@
+*.glb binary
+*.dat binary
+*.unitypackage binary
+*.apk binary
+*.png binary
+AMTMechanismKit/AMTMechanismKit/*.xml -text
+*.ttf binary

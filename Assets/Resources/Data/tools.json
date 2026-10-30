@@ -1,0 +1,45 @@
+{
+  "source": "The official AR app page lists screws, Allen keys and screwdrivers among the items shown in its animations (https://www.iafsm.in/index.php/component/sppagebuilder/?view=page&id=59). Tool sizes are not published; the fastener-to-tool pairing below is inferred from the screw heads in the CAD model.",
+  "tools": [
+    {
+      "id": "allen_key", "name": "Allen (hex) key set", "model": "allen",
+      "purpose": "Tightens and loosens hex-socket screws.",
+      "use": "Insert the short arm fully into the screw socket and turn with the long arm for torque. Use the ball end only for reaching angled screws, not for final tightening.",
+      "reason": "The frame, plates, brackets and station mounts are joined with socket-head screws, which take high torque without slipping and fit in tight spaces.",
+      "safety": [
+        "Use the exact size — a loose key rounds the socket.",
+        "Make sure the key is fully seated before applying force.",
+        "Isolate power before working near the drive train or stations.",
+        "Tighten in a cross pattern so plates seat evenly."
+      ],
+      "components": ["top_plate__fasteners", "frame_crossbeams__fasteners", "motor_mount_plate__fasteners", "motor_bridge_bar__fasteners", "top_plate_brackets", "disc_standoffs", "shaft_coupling", "camera_bridge", "rfid_bracket", "distance_bracket", "solenoid_body"],
+      "verification": "published"
+    },
+    {
+      "id": "screwdriver_phillips", "name": "Phillips screwdriver", "model": "phillips",
+      "purpose": "Drives cross-head screws.",
+      "use": "Match the tip size to the screw, keep the shaft in line with the screw and push firmly while turning.",
+      "reason": "Cross-head screws appear on the servo drive mounting.",
+      "safety": [
+        "Switch off and isolate the supply before touching electrical equipment.",
+        "Wrong tip sizes cam out and damage the screw head.",
+        "Hold the workpiece, not the area in front of the tip."
+      ],
+      "components": ["servo_drive__fasteners", "servo_drive"],
+      "verification": "geometry"
+    },
+    {
+      "id": "screwdriver_flat", "name": "Flat-blade (terminal) screwdriver", "model": "flat",
+      "purpose": "Tightens terminal screws and releases DIN-rail clips.",
+      "use": "Use a narrow insulated blade for terminal screws. To remove a module, lever the DIN clip down at the bottom of the module and tilt it off the rail.",
+      "reason": "Terminal blocks, the power supply, DIN modules and the circuit breaker are wired with screw terminals and held by DIN-rail clips.",
+      "safety": [
+        "Use an insulated (VDE) screwdriver for electrical terminals.",
+        "Never work on terminals while the circuit is live; switch off the circuit breaker and verify.",
+        "Do not overtighten small terminal screws."
+      ],
+      "components": ["terminal_blocks", "power_supply", "din_module_b", "din_module_c", "circuit_breaker", "din_rail_left", "din_rail_right", "servo_drive"],
+      "verification": "geometry"
+    }
+  ]
+}

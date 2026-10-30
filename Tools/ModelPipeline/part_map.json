@@ -1,0 +1,16 @@
+{
+ "base_plate":[67], "carry_handles":[237,265,0,149,36,236], "frame_legs":[241,63,70,134],
+ "frame_crossbeams":[72,205,245,268], "top_plate":[240], "top_plate_brackets":[64,151,174,213],
+ "wiring_ducts":[264,224,267],
+ "servo_motor":[77], "motor_mount_plate":[76], "motor_bridge_bar":[50], "shaft_coupling":[82,187],
+ "disc_standoffs":[3,60,75,204,182,246,273,160,74,159,203],
+ "index_disc":[157], "test_product":[161,125,253],
+ "inductive_sensor_a":[54], "inductive_sensor_b":[248],
+ "rfid_head":[126,127,135,136,137,139,141,142,138], "rfid_bracket":[257],
+ "distance_sensor":[95,162,61,62], "distance_bracket":[124,206,233,234,207],
+ "camera_bridge":[45], "usb_camera":[229],
+ "solenoid_body":[69], "solenoid_plunger":[73,158,181,244,180,2],
+ "servo_drive":[219,15,146,218,220,222,275,66], "circuit_breaker":[14,35], "din_rail_right":[28],
+ "din_rail_left":[40,172,173], "power_supply":[169,168], "din_module_b":[1], "din_module_c":[37],
+ "terminal_blocks":[171,266,68,223,38,39,150,170,239,238]
+}

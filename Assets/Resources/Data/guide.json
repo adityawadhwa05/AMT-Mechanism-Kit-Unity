@@ -1,0 +1,111 @@
+{
+  "verified": false,
+  "source": "Authored from the real part layout of the supplied CAD model (bottom-up build order). It is not the manufacturer's procedure: fastener sizes, torques, wiring and adjustment steps are not documented. Disassembly runs the same steps in reverse.",
+  "steps": [
+    {
+      "title": "Base plate and handles",
+      "assemble": "Place the base plate on a flat bench and fit the carry handles at both ends.",
+      "disassemble": "Remove the carry handles. The base plate is the last part left.",
+      "explanation": "The base plate is the foundation for the frame and all electrical equipment.",
+      "parts": ["base_plate", "carry_handles"], "fasteners": [], "tool": "allen_key", "approach": [0, 1, 0]
+    },
+    {
+      "title": "DIN rails and electrical modules",
+      "assemble": "Screw the two DIN rails to the base. Clip on the power supply, the two DIN modules, the terminal blocks and the circuit breaker.",
+      "disassemble": "Release each module's DIN clip with a flat screwdriver and tilt it off the rail, then unscrew the rails.",
+      "explanation": "Standard 35 mm DIN rail lets modules be clipped on and off without tools other than a screwdriver for the clip and terminals.",
+      "parts": ["din_rail_left", "din_rail_right", "power_supply", "din_module_b", "din_module_c", "terminal_blocks", "circuit_breaker"], "fasteners": [], "tool": "screwdriver_flat", "approach": [0, 1, 0]
+    },
+    {
+      "title": "Wiring ducts",
+      "assemble": "Fit the slotted wiring ducts along the base between the frame area and the electrics.",
+      "disassemble": "Remove the duct covers and lift out the wiring ducts.",
+      "explanation": "Ducts route and protect the cables to the motor, sensors and solenoid.",
+      "parts": ["wiring_ducts"], "fasteners": [], "tool": "", "approach": [0, 1, 0]
+    },
+    {
+      "title": "Servo drive",
+      "assemble": "Stand the servo drive upright at the side of the base and secure its mounting screw.",
+      "disassemble": "Unplug the drive cables, remove the mounting screw and lift the servo drive away.",
+      "explanation": "The servo drive powers and controls the servo motor that indexes the table.",
+      "parts": ["servo_drive"], "fasteners": ["servo_drive__fasteners"], "tool": "screwdriver_phillips", "approach": [0, 0, 0]
+    },
+    {
+      "title": "Frame legs and cross beams",
+      "assemble": "Stand the four legs on the base, fit the cross beams between them and tighten the frame screws.",
+      "disassemble": "Loosen the frame screws, remove the cross beams and lift off the legs.",
+      "explanation": "The square frame raises the working surface and leaves room for the drive train.",
+      "parts": ["frame_legs", "frame_crossbeams"], "fasteners": ["frame_crossbeams__fasteners"], "tool": "allen_key", "approach": [0, 1, 0]
+    },
+    {
+      "title": "Motor mount plate and servo motor",
+      "assemble": "Fit the motor mount plate across the frame, then fix the servo motor beneath it with its shaft pointing up.",
+      "disassemble": "Support the servo motor, remove its screws and lower it out, then remove the motor mount plate.",
+      "explanation": "The motor must sit exactly under the table axis so the coupling runs true.",
+      "parts": ["motor_mount_plate", "servo_motor"], "fasteners": ["motor_mount_plate__fasteners"], "tool": "allen_key", "approach": [0, -1, 0]
+    },
+    {
+      "title": "Support bar, drive supports and coupling",
+      "assemble": "Fit the support bridge bar, the four drive supports and the top plate brackets, then clamp the shaft coupling onto the motor shaft.",
+      "disassemble": "Loosen the coupling clamp, then remove the brackets, drive supports and support bar.",
+      "explanation": "These parts hold the drive train in line and connect the motor shaft to the disc.",
+      "parts": ["motor_bridge_bar", "disc_standoffs", "top_plate_brackets", "shaft_coupling"], "fasteners": ["motor_bridge_bar__fasteners"], "tool": "allen_key", "approach": [0, 1, 0]
+    },
+    {
+      "title": "Inductive sensors",
+      "assemble": "Mount the two cylindrical inductive sensors under the top-plate level and set their gap to the target.",
+      "disassemble": "Unplug the sensor cables and remove the two inductive sensors.",
+      "explanation": "Inductive sensors detect metal without contact. Their exact targets need confirmation on the kit.",
+      "parts": ["inductive_sensor_a", "inductive_sensor_b"], "fasteners": [], "tool": "", "approach": [0, 0, 0]
+    },
+    {
+      "title": "Top plate",
+      "assemble": "Lower the top plate onto the frame around the coupling and tighten its screws evenly.",
+      "disassemble": "Remove the top plate screws and lift the top plate straight up.",
+      "explanation": "The top plate is the common reference surface for the disc and all four stations.",
+      "parts": ["top_plate"], "fasteners": ["top_plate__fasteners"], "tool": "allen_key", "approach": [0, 1, 0]
+    },
+    {
+      "title": "Indexing disc",
+      "assemble": "Seat the indexing disc on the coupling hub in the centre opening of the top plate.",
+      "disassemble": "Lift the indexing disc off the hub.",
+      "explanation": "The disc carries the product between stations in quarter-turn steps.",
+      "parts": ["index_disc"], "fasteners": [], "tool": "allen_key", "approach": [0, 1, 0]
+    },
+    {
+      "title": "Station 1 — RFID head",
+      "assemble": "Fix the RFID bracket to the top plate and mount the RFID head on it, aimed at the disc rim.",
+      "disassemble": "Unplug the RFID cable, remove the RFID head and then its bracket.",
+      "explanation": "Station 1 identifies the product by reading and writing its RFID tag.",
+      "parts": ["rfid_bracket", "rfid_head"], "fasteners": [], "tool": "allen_key", "approach": [0, 0, 0]
+    },
+    {
+      "title": "Station 2 — distance sensor",
+      "assemble": "Fix the slotted bracket with its thumb screws and mount the distance sensor above the disc rim.",
+      "disassemble": "Unplug the sensor cable, remove the distance sensor and loosen the thumb screws to free the bracket.",
+      "explanation": "Station 2 measures the product height or distance to verify its dimensions.",
+      "parts": ["distance_bracket", "distance_sensor"], "fasteners": [], "tool": "allen_key", "approach": [0, 0, 0]
+    },
+    {
+      "title": "Station 3 — camera bridge and camera",
+      "assemble": "Bolt the camera bridge over the disc rim and fit the USB camera under its top, looking down.",
+      "disassemble": "Unplug the USB cable, remove the camera and unbolt the camera bridge.",
+      "explanation": "Station 3 inspects the product with image processing.",
+      "parts": ["camera_bridge", "usb_camera"], "fasteners": [], "tool": "allen_key", "approach": [0, 1, 0]
+    },
+    {
+      "title": "Station 4 — solenoid",
+      "assemble": "Mount the linear solenoid on the top plate with its pusher facing the disc rim.",
+      "disassemble": "Disconnect the solenoid wires and remove the solenoid with its pusher.",
+      "explanation": "Station 4 pushes the product when the PLC switches the solenoid output.",
+      "parts": ["solenoid_body", "solenoid_plunger"], "fasteners": [], "tool": "allen_key", "approach": [0, 0, 0]
+    },
+    {
+      "title": "Test product",
+      "assemble": "Place the tagged test product in its pocket on the disc at station 1.",
+      "disassemble": "Lift the test product off the disc.",
+      "explanation": "The kit is ready: the product will be identified, measured, inspected and sorted.",
+      "parts": ["test_product"], "fasteners": [], "tool": "", "approach": [0, 1, 0]
+    }
+  ]
+}

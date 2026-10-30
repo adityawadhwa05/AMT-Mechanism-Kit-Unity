@@ -1,0 +1,385 @@
+{
+  "source": "Part geometry: supplied MechanismKit.glb, split into its separate CAD bodies by Tools/ModelPipeline. Roles marked 'published' follow the kit description at https://www.iafsm.in/index.php?id=14&option=com_sppagebuilder&view=page. Roles marked 'geometry' were identified from shape, size and position only and need confirmation against the physical kit or manufacturer CAD.",
+  "components": [
+    {
+      "id": "index_disc", "name": "Indexing table disc", "category": "Motion", "station": 0,
+      "summary": "Round table that carries the test product from station to station.",
+      "function": "The servo motor turns the disc in quarter-turn steps so a product placed on it stops in front of each of the four stations in turn.",
+      "interactions": "Driven from below through the shaft coupling by the servo motor. The four stations are fixed around its rim. The test product sits in a pocket on its edge.",
+      "principle": "Indexing: converting continuous motor rotation into accurate, repeatable stops. Here the servo drive positions the motor to a target angle (90° per station), so the controller always knows which station the product is at.",
+      "location": "Centre of the top plate, flush with its surface.",
+      "tools": ["allen_key"], "related": ["servo_motor", "shaft_coupling", "test_product"],
+      "verification": "published", "explodeUp": 0.40, "explodeOut": 0.0, "rotatesWithTable": true
+    },
+    {
+      "id": "servo_motor", "name": "Servo motor", "category": "Motion", "station": 0,
+      "summary": "Electric motor that rotates the indexing table.",
+      "function": "Produces the rotation that indexes the table. Its built-in encoder reports the shaft position back to the servo drive.",
+      "interactions": "Powered and controlled by the servo drive. Bolted under the motor mount plate; its shaft drives the indexing disc through the shaft coupling.",
+      "principle": "Closed-loop position control: the drive compares the commanded angle with the encoder feedback and corrects the motor current until the error is zero.",
+      "location": "Hanging below the motor mount plate, directly under the indexing disc.",
+      "tools": ["allen_key"], "related": ["servo_drive", "shaft_coupling", "motor_mount_plate", "index_disc"],
+      "verification": "published", "explodeUp": 0.12, "explodeOut": 0.0
+    },
+    {
+      "id": "servo_drive", "name": "Servo drive", "category": "Electrical", "station": 0,
+      "summary": "Power electronics that command the servo motor.",
+      "function": "Receives move commands from the PLC and supplies the motor with controlled current so the table turns to the requested station.",
+      "interactions": "Cabled to the servo motor (power and encoder) and to the PLC trainer kit (commands and status). Mounted upright on the base plate.",
+      "principle": "A servo drive runs the position, speed and current control loops of the motor. Connector ports on top carry the motor, encoder and communication cables.",
+      "location": "Upright enclosure at the side of the base plate.",
+      "tools": ["screwdriver_phillips", "screwdriver_flat"], "related": ["servo_motor", "circuit_breaker", "power_supply"],
+      "verification": "published", "explodeUp": 0.0, "explodeOut": 0.16
+    },
+    {
+      "id": "shaft_coupling", "name": "Shaft coupling and hub", "category": "Motion", "station": 0,
+      "summary": "Connects the motor shaft to the indexing disc.",
+      "function": "Transmits the motor torque to the disc and keeps the two shafts aligned.",
+      "interactions": "Clamps onto the servo motor shaft below and the disc hub above.",
+      "principle": "A coupling tolerates small misalignment between shafts while transmitting torque without backlash, which keeps the station stops accurate.",
+      "location": "Between the servo motor and the underside of the indexing disc.",
+      "tools": ["allen_key"], "related": ["servo_motor", "index_disc"],
+      "verification": "geometry", "explodeUp": 0.27, "explodeOut": 0.0, "rotatesWithTable": true
+    },
+    {
+      "id": "test_product", "name": "Test product with tag", "category": "Product", "station": 1,
+      "summary": "Sample workpiece that travels through the four stations.",
+      "function": "Represents a manufactured part. It carries an RFID tag and is identified, measured, inspected and finally accepted or pushed by the solenoid.",
+      "interactions": "Sits in a pocket on the indexing disc and moves with it. Each station acts on it when it stops in front of that station.",
+      "principle": "Part tracking: a tag on the product lets every station associate its measurement with that specific part.",
+      "location": "On the rim of the indexing disc, starting under the RFID head.",
+      "tools": [], "related": ["index_disc", "rfid_head", "distance_sensor", "usb_camera", "solenoid_plunger"],
+      "verification": "published", "explodeUp": 0.47, "explodeOut": 0.02, "rotatesWithTable": true
+    },
+    {
+      "id": "rfid_head", "name": "RFID read/write head", "category": "Sensing", "station": 1,
+      "summary": "Station 1 — reads and writes the product's tag.",
+      "function": "The RFID controller reads and writes the tag values of the product as it stops at station 1.",
+      "interactions": "Faces the product on the disc. Its data goes through the IO-Link master in the PLC trainer kit to the PLC.",
+      "principle": "Radio-frequency identification: the head's antenna powers the passive tag by induction and exchanges data with it without contact or line of sight.",
+      "location": "Station 1, on its bracket at the edge of the top plate, aimed at the disc rim.",
+      "tools": ["allen_key"], "related": ["rfid_bracket", "test_product"],
+      "verification": "published", "explodeUp": 0.36, "explodeOut": 0.10
+    },
+    {
+      "id": "rfid_bracket", "name": "RFID mounting bracket", "category": "Structure", "station": 1,
+      "summary": "Holds the RFID head at the right height and distance.",
+      "function": "Positions the RFID head so the product tag passes within its read range.",
+      "interactions": "Screwed to the top plate; the RFID head mounts on it.",
+      "principle": "Sensor brackets fix the working distance. RFID read range is short, so the gap between head and tag matters.",
+      "location": "Station 1, top plate edge.",
+      "tools": ["allen_key"], "related": ["rfid_head", "top_plate"],
+      "verification": "geometry", "explodeUp": 0.33, "explodeOut": 0.14
+    },
+    {
+      "id": "distance_sensor", "name": "Smart distance sensor", "category": "Sensing", "station": 2,
+      "summary": "Station 2 — measures product height or distance.",
+      "function": "Measures the distance to the product to verify its dimensions, and reports both the analog value and its status.",
+      "interactions": "Mounted on an adjustable bracket above the disc rim. Communicates with the PLC through the IO-Link master.",
+      "principle": "A distance sensor emits light and measures its reflection to compute range. IO-Link carries the measured value and diagnostics digitally to the controller.",
+      "location": "Station 2, on the slotted L-bracket above the disc rim.",
+      "tools": ["allen_key"], "related": ["distance_bracket", "test_product"],
+      "verification": "published", "explodeUp": 0.40, "explodeOut": 0.10
+    },
+    {
+      "id": "distance_bracket", "name": "Adjustable sensor bracket", "category": "Structure", "station": 2,
+      "summary": "Slotted L-bracket that sets the distance sensor height.",
+      "function": "Holds the distance sensor; the slots and thumb screws let its height and position be adjusted.",
+      "interactions": "Fixed to the top plate with thumb screws; carries the distance sensor.",
+      "principle": "Slotted brackets allow fine adjustment during commissioning, then are locked in place.",
+      "location": "Station 2, top plate.",
+      "tools": ["allen_key"], "related": ["distance_sensor", "top_plate"],
+      "verification": "geometry", "explodeUp": 0.34, "explodeOut": 0.14
+    },
+    {
+      "id": "usb_camera", "name": "USB vision camera", "category": "Sensing", "station": 3,
+      "summary": "Station 3 — inspects the product with image processing.",
+      "function": "Captures images of the product for image processing and product testing; sorting is based on the result.",
+      "interactions": "Hangs from the camera bridge looking down at the disc rim. Its result decides whether the solenoid acts at station 4.",
+      "principle": "Machine vision: software compares features in the image (shape, colour, markings) with a reference to accept or reject the part.",
+      "location": "Station 3, under the top of the camera bridge.",
+      "tools": ["allen_key"], "related": ["camera_bridge", "test_product", "solenoid_body"],
+      "verification": "published", "explodeUp": 0.50, "explodeOut": 0.10
+    },
+    {
+      "id": "camera_bridge", "name": "Camera bridge", "category": "Structure", "station": 3,
+      "summary": "Arch that holds the camera above the disc.",
+      "function": "Places the camera at a fixed height and angle above the product.",
+      "interactions": "Bolted to the top plate; the USB camera mounts under its top.",
+      "principle": "A rigid, repeatable camera position keeps the field of view and focus constant between parts.",
+      "location": "Station 3, standing on the top plate over the disc rim.",
+      "tools": ["allen_key"], "related": ["usb_camera", "top_plate"],
+      "verification": "geometry", "explodeUp": 0.35, "explodeOut": 0.10
+    },
+    {
+      "id": "solenoid_body", "name": "Linear solenoid", "category": "Actuation", "station": 4,
+      "summary": "Station 4 — pushes the product when commanded.",
+      "function": "Extends and retracts its plunger when switched by a digital output of the PLC, for example to push a rejected product.",
+      "interactions": "Connected directly to a PLC digital output. Its plunger and pusher reach over the disc rim.",
+      "principle": "Electromagnetic actuation: current in the coil pulls the iron plunger; a spring returns it when the current stops. The rubber bellows keeps dirt out of the plunger.",
+      "location": "Station 4, lying on the top plate and pointing at the disc rim.",
+      "tools": ["allen_key"], "related": ["solenoid_plunger", "usb_camera"],
+      "verification": "published", "explodeUp": 0.34, "explodeOut": 0.14
+    },
+    {
+      "id": "solenoid_plunger", "name": "Solenoid plunger and pusher", "category": "Actuation", "station": 4,
+      "summary": "The moving tip that contacts the product.",
+      "function": "Moves in a straight line out of the solenoid to push the product, then returns.",
+      "interactions": "Driven by the solenoid; acts on the product at station 4.",
+      "principle": "Linear motion output of the solenoid. The stroke shown in the animation is illustrative.",
+      "location": "Station 4, at the end of the solenoid next to the disc rim.",
+      "tools": ["allen_key"], "related": ["solenoid_body", "test_product"],
+      "verification": "geometry", "explodeUp": 0.36, "explodeOut": 0.07
+    },
+    {
+      "id": "inductive_sensor_a", "name": "Inductive sensor (long body)", "category": "Sensing", "station": 0,
+      "summary": "Cylindrical presence sensor below the disc.",
+      "function": "Detects metal targets without contact. Its position under the disc suggests it senses the table or product position; its exact role needs confirmation.",
+      "interactions": "Mounted vertically between the base and the top plate, aimed at the underside of the disc.",
+      "principle": "An inductive sensor creates an alternating magnetic field; a nearby metal target absorbs energy from it and the sensor switches its output.",
+      "location": "Under the top plate, below the disc.",
+      "tools": [], "related": ["index_disc", "inductive_sensor_b"],
+      "verification": "geometry", "explodeUp": 0.16, "explodeOut": 0.12
+    },
+    {
+      "id": "inductive_sensor_b", "name": "Inductive sensor (M18 size)", "category": "Sensing", "station": 0,
+      "summary": "Second cylindrical presence sensor under the table.",
+      "function": "Detects a metal target without contact; the kit description states each station has smart inductive sensors to sense the part's presence. Its exact target needs confirmation.",
+      "interactions": "Mounted under the top plate near the drive train.",
+      "principle": "Inductive proximity sensing (see the long-body sensor). M18 refers to the 18 mm threaded body.",
+      "location": "Under the top plate, beside the servo motor.",
+      "tools": [], "related": ["inductive_sensor_a"],
+      "verification": "geometry", "explodeUp": 0.14, "explodeOut": 0.12
+    },
+    {
+      "id": "top_plate", "name": "Top plate", "category": "Structure", "station": 0,
+      "summary": "Working surface that carries the disc and all four stations.",
+      "function": "Provides a flat, rigid reference surface; the stations are fixed to it around the disc.",
+      "interactions": "Supported by the frame legs and brackets. Has a central opening for the indexing disc.",
+      "principle": "A common mounting plate keeps every station in a fixed relationship to the table axis.",
+      "location": "Upper level of the machine.",
+      "tools": ["allen_key"], "related": ["frame_legs", "top_plate_brackets", "index_disc"],
+      "verification": "geometry", "explodeUp": 0.31, "explodeOut": 0.0
+    },
+    {
+      "id": "frame_legs", "name": "Frame legs", "category": "Structure", "station": 0,
+      "summary": "Four square legs that raise the top plate.",
+      "function": "Carry the top plate above the base and leave room for the drive train underneath.",
+      "interactions": "Stand on the base plate; joined by the cross beams; support the top plate.",
+      "principle": "A rigid four-post frame resists twisting so the table axis stays square to the plate.",
+      "location": "Between base plate and top plate.",
+      "tools": ["allen_key"], "related": ["frame_crossbeams", "base_plate", "top_plate"],
+      "verification": "geometry", "explodeUp": 0.08, "explodeOut": 0.0
+    },
+    {
+      "id": "frame_crossbeams", "name": "Frame cross beams", "category": "Structure", "station": 0,
+      "summary": "Beams that tie the legs together.",
+      "function": "Brace the legs and provide mounting points for the drive train.",
+      "interactions": "Bolted between the frame legs.",
+      "principle": "Cross bracing stiffens the frame against racking.",
+      "location": "Between the legs, under the top plate.",
+      "tools": ["allen_key"], "related": ["frame_legs"],
+      "verification": "geometry", "explodeUp": 0.10, "explodeOut": 0.0
+    },
+    {
+      "id": "top_plate_brackets", "name": "Top plate brackets", "category": "Structure", "station": 0,
+      "summary": "Angle brackets under the top plate.",
+      "function": "Join the top plate to the frame and drive-train supports.",
+      "interactions": "Screwed to the underside of the top plate.",
+      "principle": "Angle brackets transfer load between perpendicular members.",
+      "location": "Underside of the top plate.",
+      "tools": ["allen_key"], "related": ["top_plate"],
+      "verification": "geometry", "explodeUp": 0.22, "explodeOut": 0.0
+    },
+    {
+      "id": "motor_mount_plate", "name": "Motor mount plate", "category": "Structure", "station": 0,
+      "summary": "Plate that carries the servo motor.",
+      "function": "Holds the servo motor centred under the table axis.",
+      "interactions": "Spans the frame; the servo motor is screwed to it.",
+      "principle": "Concentric mounting keeps the motor shaft aligned with the disc axis.",
+      "location": "Mid-level, under the disc.",
+      "tools": ["allen_key"], "related": ["servo_motor", "frame_crossbeams"],
+      "verification": "geometry", "explodeUp": 0.17, "explodeOut": 0.0
+    },
+    {
+      "id": "motor_bridge_bar", "name": "Support bridge bar", "category": "Structure", "station": 0,
+      "summary": "Bar spanning the frame below the disc.",
+      "function": "Carries the disc supports and stiffens the upper frame.",
+      "interactions": "Screwed across the frame below the top plate.",
+      "principle": "A bridge member spreads the table loads into the frame.",
+      "location": "Just below the top plate, across the disc axis.",
+      "tools": ["allen_key"], "related": ["disc_standoffs", "top_plate"],
+      "verification": "geometry", "explodeUp": 0.22, "explodeOut": 0.0
+    },
+    {
+      "id": "disc_standoffs", "name": "Drive supports and standoffs", "category": "Structure", "station": 0,
+      "summary": "Four standoff assemblies around the table axis.",
+      "function": "Space and support the drive-train parts around the shaft.",
+      "interactions": "Sit between the support bar and the top plate around the coupling.",
+      "principle": "Standoffs set exact heights between parallel plates.",
+      "location": "Around the shaft, under the disc.",
+      "tools": ["allen_key"], "related": ["shaft_coupling", "motor_bridge_bar"],
+      "verification": "geometry", "explodeUp": 0.25, "explodeOut": 0.0
+    },
+    {
+      "id": "base_plate", "name": "Base plate", "category": "Structure", "station": 0,
+      "summary": "Foundation of the kit.",
+      "function": "Carries the frame and all electrical equipment.",
+      "interactions": "Everything else is mounted on it; carry handles are fixed at its ends.",
+      "principle": "A single base keeps the mechanism and its electrics together as one portable unit.",
+      "location": "Bottom of the kit.",
+      "tools": ["allen_key"], "related": ["frame_legs", "carry_handles"],
+      "verification": "geometry", "explodeUp": 0.0, "explodeOut": 0.0
+    },
+    {
+      "id": "carry_handles", "name": "Carry handles", "category": "Structure", "station": 0,
+      "summary": "Handles at both ends of the base.",
+      "function": "Let the kit be lifted and carried.",
+      "interactions": "Screwed to the ends of the base plate.",
+      "principle": "Lift with both handles and keep the kit level.",
+      "location": "Both short ends of the base plate.",
+      "tools": ["allen_key"], "related": ["base_plate"],
+      "verification": "geometry", "explodeUp": 0.0, "explodeOut": 0.10
+    },
+    {
+      "id": "wiring_ducts", "name": "Wiring ducts", "category": "Electrical", "station": 0,
+      "summary": "Slotted trunking that routes the cables.",
+      "function": "Guides and protects the wiring between the electrical modules and the machine.",
+      "interactions": "Run along the base between the frame and the DIN rails.",
+      "principle": "Slotted duct keeps wiring tidy, separated and easy to trace.",
+      "location": "On the base plate around the frame.",
+      "tools": [], "related": ["terminal_blocks", "servo_drive"],
+      "verification": "geometry", "explodeUp": 0.0, "explodeOut": 0.08
+    },
+    {
+      "id": "din_rail_left", "name": "DIN rail (main)", "category": "Electrical", "station": 0,
+      "summary": "35 mm mounting rail for the electrical modules.",
+      "function": "Standard rail onto which the power supply, modules and terminal blocks clip.",
+      "interactions": "Screwed to the base plate; carries the power supply, DIN modules and terminal blocks.",
+      "principle": "Top-hat DIN rail (35 mm, EN 60715) is the industrial standard for mounting control equipment.",
+      "location": "Along one end of the base plate.",
+      "tools": ["screwdriver_flat"], "related": ["power_supply", "terminal_blocks", "din_module_b", "din_module_c"],
+      "verification": "geometry", "explodeUp": 0.0, "explodeOut": 0.10
+    },
+    {
+      "id": "din_rail_right", "name": "DIN rail (short)", "category": "Electrical", "station": 0,
+      "summary": "Short 35 mm rail for the circuit breaker.",
+      "function": "Mounting rail for the circuit breaker.",
+      "interactions": "Screwed to the base plate; carries the circuit breaker.",
+      "principle": "See DIN rail (main).",
+      "location": "Base plate, beside the servo drive.",
+      "tools": ["screwdriver_flat"], "related": ["circuit_breaker"],
+      "verification": "geometry", "explodeUp": 0.0, "explodeOut": 0.10
+    },
+    {
+      "id": "power_supply", "name": "DIN-rail power supply", "category": "Electrical", "station": 0,
+      "summary": "Converts mains to the low DC voltage for sensors and controls.",
+      "function": "Shape and position match a DIN-rail switch-mode power supply, typically 24 V DC for industrial sensors and I/O. Confirm the rating on its label.",
+      "interactions": "Clips onto the main DIN rail; feeds the terminal blocks.",
+      "principle": "A switch-mode supply rectifies mains and switches it at high frequency through a small transformer to give a regulated DC output.",
+      "location": "Main DIN rail.",
+      "tools": ["screwdriver_flat"], "related": ["din_rail_left", "terminal_blocks"],
+      "verification": "geometry", "explodeUp": 0.06, "explodeOut": 0.14
+    },
+    {
+      "id": "din_module_b", "name": "DIN module (large)", "category": "Electrical", "station": 0,
+      "summary": "Second DIN-rail module, same size class as the power supply.",
+      "function": "Function not identifiable from the model. Check the label on the physical kit.",
+      "interactions": "Clips onto the main DIN rail.",
+      "principle": "DIN-rail modules share one mounting standard so they can be added or swapped easily.",
+      "location": "Main DIN rail, end position.",
+      "tools": ["screwdriver_flat"], "related": ["din_rail_left"],
+      "verification": "geometry", "explodeUp": 0.06, "explodeOut": 0.14
+    },
+    {
+      "id": "din_module_c", "name": "DIN module (narrow)", "category": "Electrical", "station": 0,
+      "summary": "Narrow DIN-rail module.",
+      "function": "Function not identifiable from the model. Check the label on the physical kit.",
+      "interactions": "Clips onto the main DIN rail between the other modules.",
+      "principle": "See DIN module (large).",
+      "location": "Main DIN rail, middle position.",
+      "tools": ["screwdriver_flat"], "related": ["din_rail_left"],
+      "verification": "geometry", "explodeUp": 0.06, "explodeOut": 0.14
+    },
+    {
+      "id": "terminal_blocks", "name": "Terminal blocks", "category": "Electrical", "station": 0,
+      "summary": "Row of ten wiring terminals.",
+      "function": "Join field wires (sensors, solenoid, motor) to the supply and control wiring in an organised, testable way.",
+      "interactions": "Clip onto the main DIN rail next to the power supply.",
+      "principle": "Each terminal clamps a wire with a screw or spring; colours and markers identify circuits.",
+      "location": "Main DIN rail, end position.",
+      "tools": ["screwdriver_flat"], "related": ["din_rail_left", "power_supply"],
+      "verification": "geometry", "explodeUp": 0.06, "explodeOut": 0.14
+    },
+    {
+      "id": "circuit_breaker", "name": "Circuit breaker", "category": "Electrical", "station": 0,
+      "summary": "Two-pole protective switch.",
+      "function": "Shape matches a two-pole miniature circuit breaker that protects and isolates the supply. Confirm its rating on the physical kit.",
+      "interactions": "Clips onto the short DIN rail beside the servo drive.",
+      "principle": "A breaker trips on overcurrent (thermal) or short circuit (magnetic) and doubles as an isolation switch.",
+      "location": "Short DIN rail, base plate.",
+      "tools": ["screwdriver_flat"], "related": ["din_rail_right", "servo_drive"],
+      "verification": "geometry", "explodeUp": 0.06, "explodeOut": 0.14
+    },
+    {
+      "id": "top_plate__fasteners", "name": "Top plate fasteners", "category": "Fasteners", "station": 0,
+      "summary": "Screws and washers on the top plate.",
+      "function": "Secure the top plate and the parts mounted on it.",
+      "interactions": "Pass through the top plate into the frame, brackets and station mounts.",
+      "principle": "Screw joints clamp parts together by tension in the screw. Tighten evenly in a cross pattern.",
+      "location": "Top plate surface.",
+      "tools": ["allen_key"], "related": ["top_plate"],
+      "verification": "geometry", "explodeUp": 0.36, "explodeOut": 0.0
+    },
+    {
+      "id": "frame_crossbeams__fasteners", "name": "Frame fasteners", "category": "Fasteners", "station": 0,
+      "summary": "Screws joining the frame members.",
+      "function": "Fix the cross beams and legs together.",
+      "interactions": "Through the cross beams into the legs.",
+      "principle": "See top plate fasteners.",
+      "location": "Frame joints.",
+      "tools": ["allen_key"], "related": ["frame_crossbeams"],
+      "verification": "geometry", "explodeUp": 0.13, "explodeOut": 0.0
+    },
+    {
+      "id": "motor_mount_plate__fasteners", "name": "Motor plate fasteners", "category": "Fasteners", "station": 0,
+      "summary": "Screws for the motor mount plate.",
+      "function": "Fix the motor mount plate to the frame.",
+      "interactions": "Through the motor mount plate.",
+      "principle": "See top plate fasteners.",
+      "location": "Motor mount plate.",
+      "tools": ["allen_key"], "related": ["motor_mount_plate"],
+      "verification": "geometry", "explodeUp": 0.20, "explodeOut": 0.0
+    },
+    {
+      "id": "motor_bridge_bar__fasteners", "name": "Support bar fasteners", "category": "Fasteners", "station": 0,
+      "summary": "Screws for the support bridge bar.",
+      "function": "Fix the support bar and drive supports.",
+      "interactions": "Through the support bridge bar.",
+      "principle": "See top plate fasteners.",
+      "location": "Support bridge bar.",
+      "tools": ["allen_key"], "related": ["motor_bridge_bar"],
+      "verification": "geometry", "explodeUp": 0.25, "explodeOut": 0.0
+    },
+    {
+      "id": "servo_drive__fasteners", "name": "Servo drive fixing screw", "category": "Fasteners", "station": 0,
+      "summary": "Screw on the servo drive mounting.",
+      "function": "Secures the servo drive.",
+      "interactions": "At the servo drive mounting foot.",
+      "principle": "See top plate fasteners.",
+      "location": "Servo drive.",
+      "tools": ["screwdriver_phillips"], "related": ["servo_drive"],
+      "verification": "geometry", "explodeUp": 0.03, "explodeOut": 0.17
+    }
+  ],
+  "stations": [
+    { "index": 1, "name": "RFID station", "part": "rfid_head",
+      "explanation": "The RFID controller reads and writes the tag values of the product, and sends the data through the IO-Link master to the PLC." },
+    { "index": 2, "name": "Distance sensor station", "part": "distance_sensor",
+      "explanation": "The smart distance sensor measures product height or distance and reports the analog value and its status over IO-Link, verifying the product dimensions." },
+    { "index": 3, "name": "Vision camera station", "part": "usb_camera",
+      "explanation": "The camera captures the product for image processing and product testing. Sorting is based on the image result." },
+    { "index": 4, "name": "Solenoid station", "part": "solenoid_body",
+      "explanation": "The solenoid is connected directly to a PLC digital output. The PLC program extends and retracts it, for example to push a rejected product." }
+  ]
+}
